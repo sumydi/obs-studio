@@ -37,10 +37,8 @@ jobs:
               ;;
             push)
               config_data=('codesign:true' 'notarize:false' 'package:true' 'config:RelWithDebInfo')
-              if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.[0-9]+(-(rc|beta).+)? ]]; then
-                config_data[1]='notarize:true'
-                config_data[3]='config:Release'
-              fi
+              config_data[1]='notarize:true'
+              config_data[3]='config:Release'
               ;;
             workflow_dispatch)
               config_data=('codesign:true' 'notarize:false' 'package:false' 'config:RelWithDebInfo')
@@ -139,6 +137,7 @@ jobs:
           codesign: ${{ fromJSON(needs.check-event.outputs.codesign) }}
           codesignIdent: ${{ steps.codesign.outputs.codesignIdent }}
           codesignTeam: ${{ steps.codesign.outputs.codesignTeam }}
+          provisioningProfileUUID: ${{ steps.codesign.outputs.provisioningProfileUUID }}
 
       - name: Package OBS Studio 📀
         uses: ./.github/actions/package-obs

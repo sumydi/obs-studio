@@ -298,7 +298,7 @@ ${_usage_host:-}"
 
       autoload -Uz run_xcodebuild
       pushd build_macos
-      if (( ${+CI} )) && [[ ${GITHUB_EVENT_NAME} == push && ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.[0-9]+(-(rc|beta).+)? ]] {
+      if (( ${+CI} )) {
         run_xcodebuild ${archive_args}
         run_xcodebuild ${export_args}
       } else {

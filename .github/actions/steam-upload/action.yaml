@@ -60,14 +60,6 @@ runs:
         echo '::error::steam-upload action requires a macOS-based runner.'
         exit 2
 
-    - name: Check GitHub Event 🔬
-      if: contains(fromJSON('["release", "workflow_dispatch", "schedule"]'), github.event_name) != true
-      shell: zsh --no-rcs --errexit --pipefail {0}
-      run: |
-        : Check GitHub Event 🔬
-        print "::error:steam-upload action can only be used with 'release', 'workflow-dispatch', or 'schedule' events."
-        exit 2
-
     - name: Download Nightly Assets 🌙
       id: asset-info-nightly
       uses: actions/download-artifact@v3
